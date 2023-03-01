@@ -9,6 +9,8 @@ let size = parseInt(select.value);
 let startTime;
 let elapsedTime = 0;
 let timerInterval;
+let nextNumber = 1;
+let isSuccess = true;
 
 // Функція для генерації випадкових чисел у межах від 1 до size^2
 function generateNumbers() {
@@ -21,10 +23,11 @@ function generateNumbers() {
 }
 
 // Функція для створення таблиці
-function createTable() {
-  const numbers = generateNumbers();
-  table.innerHTML = '';
-  for (let i = 0; i < size; i++) {
+function createTable(isTrue) {
+  if(isTrue == true){
+    const numbers = generateNumbers();
+    table.innerHTML = '';
+    for (let i = 0; i < size; i++) {
     const row = table.insertRow();
     for (let j = 0; j < size; j++) {
       const cell = row.insertCell();
@@ -32,12 +35,16 @@ function createTable() {
       cell.addEventListener('click', onCellClick);
     }
   }
+  }
+  
 }
 
 // Обробник події для кнопки "Почати"
 startButton.addEventListener('click', () => {
+  nextNumber = 1;
+  select.style.display = "none";
   startButton.disabled = true;
-  createTable();
+  createTable(true);
   
   startTime = Date.now();
   timerInterval = setInterval(() => {
@@ -45,9 +52,6 @@ startButton.addEventListener('click', () => {
     timeDisplay.textContent = `Час: ${elapsedTime / 1000} сек.`;
   }, 100);
 });
-
-let nextNumber = 1;
-let isSuccess = true;
 
 function onCellClick(event) {
   const cell = event.target;
@@ -57,19 +61,20 @@ function onCellClick(event) {
     cell.style.color = 'white'; // зміна кольору тексту на білий
   
   }else {
+    select.style.display = "inline-block";
     isSuccess = false;
     clearInterval(timerInterval); // зупинка таймера
     timeDisplay.textContent = `Результат: Провал`; // відображення часу
     cell.style.backgroundColor = 'red'; // зміна фону клітинки на червоний
     cell.style.color = 'white'; // зміна кольору тексту на білий
     startButton.disabled = false;
-    setTimeout("alert(`Помилка! Очікуване значення: ${nextNumber}`);", 200);
     nextNumber = 1;
   }
 
   if (nextNumber === table.rows.length ** 2 + 1 && isSuccess) { // якщо натиснуто на останнє число
+    select.style.display = "inline-block";
     clearInterval(timerInterval); // зупинка таймера
-    timeDisplay.textContent = `Час проходження: ${elapsedTime / 1000} сек.`; // відображення часу
+    timeDisplay.textContent = `Результат: ${elapsedTime / 1000} сек.`; // відображення часу
     nextNumber = 1; // скидання змінної наступного числа
     startButton.disabled = false;
     setTimeout("alert(`Ви пройшли таблицю за ${elapsedTime / 1000} секунд.`);", 200)
@@ -80,5 +85,5 @@ function onCellClick(event) {
 // Обробник події для випадаючого меню
 select.addEventListener('change', () => {
   size = parseInt(select.value);
-  createTable();
+  createTable(false);
 });
