@@ -1,6 +1,12 @@
+body {
+    text-align: center;
+    margin: 0 auto;
+  }
+
 table {
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 0 auto;
+    display: inline-block;
 }
 
 td {
@@ -13,7 +19,7 @@ td {
 
 button {
     display: block;
-    margin: 20px 0;
+    margin: 0 auto;
     font-size: 20px;
     padding: 10px;
     border-radius: 5px;
