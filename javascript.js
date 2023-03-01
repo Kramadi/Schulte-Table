@@ -47,6 +47,7 @@ startButton.addEventListener('click', () => {
 });
 
 let nextNumber = 1;
+let isSuccess = true;
 
 function onCellClick(event) {
   const cell = event.target;
@@ -54,17 +55,26 @@ function onCellClick(event) {
     nextNumber++;
     cell.style.backgroundColor = 'green'; // зміна фону клітинки на зелений
     cell.style.color = 'white'; // зміна кольору тексту на білий
-    if (nextNumber === table.rows.length ** 2 + 1) { // якщо натиснуто на останнє число
-      clearInterval(timerInterval); // зупинка таймера
-      timeDisplay.textContent = `Результат: ${elapsedTime / 1000} сек.`; // відображення часу
-      nextNumber = 1; // скидання змінної наступного числа
-      startButton.disabled = false;
-      alert(`Ви пройшли таблицю за ${elapsedTime / 1000} секунд.`);
-      table.removeEventListener('click', handleCellClick); // видалення обробника події з клітинок
-       
-    }
+  
+  }else {
+    isSuccess = false;
+    clearInterval(timerInterval); // зупинка таймера
+    timeDisplay.textContent = `Результат: Провал`; // відображення часу
+    cell.style.backgroundColor = 'red'; // зміна фону клітинки на червоний
+    cell.style.color = 'white'; // зміна кольору тексту на білий
+    startButton.disabled = false;
+    setTimeout("alert(`Помилка! Очікуване значення: ${nextNumber}`);", 200);
+    nextNumber = 1;
   }
 
+  if (nextNumber === table.rows.length ** 2 + 1 && isSuccess) { // якщо натиснуто на останнє число
+    clearInterval(timerInterval); // зупинка таймера
+    timeDisplay.textContent = `Час проходження: ${elapsedTime / 1000} сек.`; // відображення часу
+    nextNumber = 1; // скидання змінної наступного числа
+    startButton.disabled = false;
+    setTimeout("alert(`Ви пройшли таблицю за ${elapsedTime / 1000} секунд.`);", 200)
+    nextNumber = 1;
+  }
 }
 
 // Обробник події для випадаючого меню
