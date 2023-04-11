@@ -3,6 +3,8 @@ const table = document.getElementById('table');
 const select = document.getElementById('select');
 const startButton = document.getElementById('start-button');
 const timeDisplay = document.getElementById('time-display');
+const name = document.getElementById('GetName');
+const tableUsers = document.getElementById('tableUsers');
 
 // Створюємо змінні для зберігання даних
 let size = parseInt(select.value);
@@ -11,6 +13,9 @@ let elapsedTime = 0;
 let timerInterval;
 let nextNumber = 1;
 let isSuccess = true;
+var i=0;
+var ErrorClick = 0;
+var today = new Date();
 
 // Функція для генерації випадкових чисел у межах від 1 до size^2
 function generateNumbers() {
@@ -33,25 +38,30 @@ function createTable(isTrue) {
       const cell = row.insertCell();
       cell.textContent = numbers[i * size + j];
       cell.addEventListener('click', onCellClick);
+      nextNumber = 1;
     }
   }
   }
-  
 }
 
 // Обробник події для кнопки "Почати"
 startButton.addEventListener('click', () => {
   nextNumber = 1;
   select.style.display = "none";
+  document.getElementById("label").style.display = 'none';
   startButton.disabled = true;
   createTable(true);
-  
+  i++;
   startTime = Date.now();
   timerInterval = setInterval(() => {
     elapsedTime = Date.now() - startTime;
     timeDisplay.textContent = `Час: ${elapsedTime / 1000} сек.`;
   }, 100);
 });
+
+function changeBackground() {
+  document.body.style.background = "url('https://otkritkis.com/wp-content/uploads/2022/07/gj2ra.gif')";
+}
 
 function onCellClick(event) {
   const cell = event.target;
@@ -61,24 +71,43 @@ function onCellClick(event) {
     cell.style.color = 'white'; // зміна кольору тексту на білий
   
   }else {
-    select.style.display = "inline-block";
-    isSuccess = false;
-    clearInterval(timerInterval); // зупинка таймера
-    timeDisplay.textContent = `Результат: Провал`; // відображення часу
+    //select.style.display = "inline-block";
+    //document.getElementById("label").style.display = '';
+    ErrorClick++;
+    //clearInterval(timerInterval); // зупинка таймера
+    //timeDisplay.textContent = `Результат: Провал`; // відображення часу
     cell.style.backgroundColor = 'red'; // зміна фону клітинки на червоний
     cell.style.color = 'white'; // зміна кольору тексту на білий
     startButton.disabled = false;
-    nextNumber = 1;
+    //nextNumber = 1;
+    //i--;
   }
 
   if (nextNumber === table.rows.length ** 2 + 1 && isSuccess) { // якщо натиснуто на останнє число
     select.style.display = "inline-block";
+    document.getElementById("label").style.display = '';
     clearInterval(timerInterval); // зупинка таймера
     timeDisplay.textContent = `Результат: ${elapsedTime / 1000} сек.`; // відображення часу
     nextNumber = 1; // скидання змінної наступного числа
     startButton.disabled = false;
     setTimeout("alert(`Ви пройшли таблицю за ${elapsedTime / 1000} секунд.`);", 200)
     nextNumber = 1;
+    //tableUsers.insertRow(2);
+
+    var row = tableUsers.insertRow(i);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+
+    cell1.innerHTML = name.value;
+    cell2.innerHTML = size + "*" + size;
+    cell3.innerHTML = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    cell4.innerHTML = ErrorClick;
+    cell5.innerHTML = elapsedTime / 1000;
+
+    ErrorClick = 0;
   }
 }
 
