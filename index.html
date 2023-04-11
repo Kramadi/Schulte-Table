@@ -7,17 +7,31 @@
 </head>
 <body>
     <h1>Таблиця Шульте</h1>
-    <p>Автор: Дмитро Крамаренко 3КН-22м</p>
-    <p>Час розробки: 2023 рік</p>
-    <label for="select">Кількість чисел:</label>
+    <p><span>Автор:</span> Дмитро Крамаренко 3КН-22м</p>
+    <p><span>Час розробки:</span> 2023 рік</p>
+    <label id="label"><span>Час розробки:</span></label>
     <select id="select">
         <option value="3">3x3</option>
         <option value="4">4x4</option>
         <option value="5">5x5</option>
     </select>
+    <form>
+        <label>Введите имя</label>
+        <input type="text" id="GetName">
+      </form>
     <p id="time-display"></p>
     <table id="table"></table>
+    <table id="tableUsers" align="right">
+        <tr>
+            <td>Ім'я користувач</td>
+            <td>Розмірність</td>
+            <td>Час початок</td>
+            <td>Кількість помилок</td>
+            <td>Результат</td>
+        </tr>
+    </table>
     <button id="start-button">Почати</button>
+    <button onclick="changeBackground()" id="background-button"></button>
     <script src="javascript.js"></script>
 </body>
 </html>
