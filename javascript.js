@@ -16,7 +16,6 @@ let isSuccess = true;
 let GetTimeNow;
 var i=0;
 var ErrorClick = 0;
-var today = new Date();
 
 // Функція для генерації випадкових чисел у межах від 1 до size^2
 function generateNumbers() {
@@ -47,6 +46,7 @@ function createTable(isTrue) {
 
 // Обробник події для кнопки "Почати"
 startButton.addEventListener('click', () => {
+  var today = new Date();
   nextNumber = 1;
   GetTimeNow = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   select.style.display = "none";
