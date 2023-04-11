@@ -78,8 +78,12 @@ function onCellClick(event) {
     ErrorClick++;
     //clearInterval(timerInterval); // зупинка таймера
     //timeDisplay.textContent = `Результат: Провал`; // відображення часу
-    cell.style.backgroundColor = 'red'; // зміна фону клітинки на червоний
-    cell.style.color = 'white'; // зміна кольору тексту на білий
+    cell.style.backgroundColor = 'red';
+    cell.style.color = 'white';
+    setTimeout(function() {
+      cell.style.backgroundColor = "white";
+      cell.style.color = "black";
+    }, 200); //задержка 1 секунду
     startButton.disabled = false;
     //nextNumber = 1;
     //i--;
