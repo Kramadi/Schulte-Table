@@ -13,6 +13,7 @@ let elapsedTime = 0;
 let timerInterval;
 let nextNumber = 1;
 let isSuccess = true;
+let GetTimeNow;
 var i=0;
 var ErrorClick = 0;
 var today = new Date();
@@ -47,6 +48,7 @@ function createTable(isTrue) {
 // Обробник події для кнопки "Почати"
 startButton.addEventListener('click', () => {
   nextNumber = 1;
+  GetTimeNow = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   select.style.display = "none";
   document.getElementById("label").style.display = 'none';
   startButton.disabled = true;
@@ -103,7 +105,7 @@ function onCellClick(event) {
 
     cell1.innerHTML = name.value;
     cell2.innerHTML = size + "*" + size;
-    cell3.innerHTML = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    cell3.innerHTML = GetTimeNow;
     cell4.innerHTML = ErrorClick;
     cell5.innerHTML = elapsedTime / 1000;
 
