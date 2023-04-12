@@ -41,7 +41,7 @@ function createTable(isTrue) {
       nextNumber = 1;
     }
   }
-  }
+ }
 }
 
 // Обробник події для кнопки "Почати"
@@ -68,22 +68,15 @@ function onCellClick(event) {
     nextNumber++;
     cell.style.backgroundColor = 'green'; // зміна фону клітинки на зелений
     cell.style.color = 'white'; // зміна кольору тексту на білий
-  
   }else {
-    //select.style.display = "inline-block";
-    //document.getElementById("label").style.display = '';
     ErrorClick++;
-    //clearInterval(timerInterval); // зупинка таймера
-    //timeDisplay.textContent = `Результат: Провал`; // відображення часу
     cell.style.backgroundColor = 'red';
     cell.style.color = 'white';
     setTimeout(function() {
       cell.style.backgroundColor = "white";
       cell.style.color = "black";
-    }, 200); //задержка 1 секунду
+    }, 200); //задержка 0.2 секунду
     startButton.disabled = false;
-    //nextNumber = 1;
-    //i--;
   }
 
   if (nextNumber === table.rows.length ** 2 + 1 && isSuccess) { // якщо натиснуто на останнє число
@@ -93,9 +86,8 @@ function onCellClick(event) {
     timeDisplay.textContent = `Результат: ${elapsedTime / 1000} сек.`; // відображення часу
     nextNumber = 1; // скидання змінної наступного числа
     startButton.disabled = false;
-    setTimeout("alert(`Ви пройшли таблицю за ${elapsedTime / 1000} секунд.`);", 200)
+    setTimeout("alert(`Ви пройшли таблицю за ${elapsedTime / 1000} секунд.`);", 200) //повідомлення на задержку 0.2 секунду
     nextNumber = 1;
-    //tableUsers.insertRow(2);
 
     var row = tableUsers.insertRow(i);
     var cell1 = row.insertCell(0);
