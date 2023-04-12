@@ -61,10 +61,7 @@ startButton.addEventListener('click', () => {
   }, 100);
 });
 
-function changeBackground() {
-  document.body.style.background = "url('https://otkritkis.com/wp-content/uploads/2022/07/gj2ra.gif')";
-}
-
+// Обробник події для результат
 function onCellClick(event) {
   const cell = event.target;
   if (cell.textContent === nextNumber.toString()) { // якщо клітинка містить наступне за порядком число
